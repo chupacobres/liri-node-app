@@ -17,7 +17,7 @@ var valueArr = [];
 var nodeArgs = process.argv;
 
 for (var i = 3; i < nodeArgs.length; i++) {
-  valueArr.push(nodeArgs[i]);
+    valueArr.push(nodeArgs[i]);
 }
 value = valueArr.join(" ");
 
@@ -47,7 +47,6 @@ function concertThis() {
                 console.log(response.data[i].venue.name + " in " + response.data[i].venue.city + ", " + response.data[i].venue.country + " on " + moment(response.data[i].datetime).format('MM/DD/YYYY'));
             }
         },
-
         function (error) {
             if (error.response) {
                 console.log(error.response.data);
@@ -61,4 +60,26 @@ function concertThis() {
             console.log(error.config);
         }
     );
+}
+function spotifyThisSong() {
+    var spotify = new Spotify({
+        id: process.env.SPOTIFY_ID,
+        secret: process.env.SPOTIFY_SECRET
+    });
+
+    // spotify.search({ type: 'track', query: value }, function (err, data) {
+    //     if (err) {
+    //         return console.log('Error occurred: ' + err);
+    //     }
+
+    //     console.log(data.tracks.items);
+    // });
+    spotify
+  .search({ type: 'track', query: value })
+  .then(function(response) {
+    console.log(response.tracks.items);
+  })
+  .catch(function(err) {
+    console.log(err);
+  });
 }

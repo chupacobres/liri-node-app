@@ -15,30 +15,32 @@ var action = process.argv[2];
 var value = "";
 var valueArr = [];
 var nodeArgs = process.argv;
-
 for (var i = 3; i < nodeArgs.length; i++) {
     valueArr.push(nodeArgs[i]);
 }
 value = valueArr.join(" ");
+handleUser(action, value);
+function handleUser(action, value){
+    
 
-switch (action) {
-    case "concert-this":
-        concertThis();
-        break;
+    switch (action) {
+        case "concert-this":
+            concertThis();
+            break;
 
-    case "spotify-this-song":
-        spotifyThisSong();
-        break;
+        case "spotify-this-song":
+            spotifyThisSong();
+            break;
 
-    case "movie-this":
-        movieThis();
-        break;
+        case "movie-this":
+            movieThis();
+            break;
 
-    case "do-what-it-says":
-        doWhatItSays();
-        break;
+        case "do-what-it-says":
+            doWhatItSays();
+            break;
+    }
 }
-
 function concertThis() {
     axios.get("https://rest.bandsintown.com/artists/" + value + "/events?app_id=codingbootcamp").then(
         function (response) {
@@ -92,7 +94,7 @@ function movieThis() {
             console.log("Title: " + response.data.Title);
             console.log("Year: " + response.data.Year);
             console.log("IMDB Rating: " + response.data.imdbRating);
-            console.log(response.data.Ratings[1].Source,response.data.Ratings[1].Value);
+            console.log(response.data.Ratings[1].Source, response.data.Ratings[1].Value);
             console.log("Production Country(ies): " + response.data.Country);
             console.log("Language(s): " + response.data.Language);
             console.log("Plot: " + response.data.Plot)
@@ -111,4 +113,22 @@ function movieThis() {
             console.log(error.config);
         }
     );
+}
+
+function doWhatItSays() {
+    fs.readFile("random.txt", "utf8", function (error, data) {
+
+        if (error) {
+            return console.log(error);
+        }
+
+        console.log(data);
+
+        var dataArr = data.split(",");
+
+        console.log(dataArr);
+
+        handleUser(...dataArr)
+    });
+
 }

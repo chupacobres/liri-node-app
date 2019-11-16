@@ -62,24 +62,23 @@ function concertThis() {
     );
 }
 function spotifyThisSong() {
+     if (nodeArgs.length<4){
+        value = "amber";
+     }
     var spotify = new Spotify({
         id: process.env.SPOTIFY_ID,
         secret: process.env.SPOTIFY_SECRET
     });
 
-    // spotify.search({ type: 'track', query: value }, function (err, data) {
-    //     if (err) {
-    //         return console.log('Error occurred: ' + err);
-    //     }
-
-    //     console.log(data.tracks.items);
-    // });
     spotify
-  .search({ type: 'track', query: value })
-  .then(function(response) {
-    console.log(response.tracks.items);
-  })
-  .catch(function(err) {
-    console.log(err);
-  });
+        .search({ type: 'track', query: value })
+        .then(function (response) {
+            console.log("Artist: " + response.tracks.items[0].album.artists[0].name);
+            console.log("Album: " + response.tracks.items[0].album.name);
+            console.log("Release date: " + response.tracks.items[0].album.release_date);
+            console.log("Preview URL: " + response.tracks.items[0].preview_url)
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
 }

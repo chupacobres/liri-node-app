@@ -9,10 +9,14 @@ Once the App runs (by navigating to the file's root and runnin node liri.js), yo
 * spotify-this-song <song> (This will give you info on the song provided)
 * movie-this <movie> (This will give you info on the movie provided)
 * do-what-it-says (This will run any of the previous commands from a random.txt file found in the same directory)
-<h3>example: spotify-this-song thriller<h3>
+<h3>example: spotify-this-song thriller</h3>
 
 Keep in mind that cloning this app would only let you pull data using concert-this and movie-this. You would need to create a .env file with your own Spotify Developer credentials. Also, mode nodules are not tracked on github, so make sure you install axios, moment, dotenv and spotify's npm.
 
+
+### The App in action
+
+![](proto.gif)
 
 
 
